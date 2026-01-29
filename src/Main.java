@@ -32,17 +32,14 @@ public class Main {
             int weight = Integer.parseInt(scanner.nextLine());
 
             boolean findAddress = false;
-            for (Address address : costPerAddress.keySet()) {
-                if (address.country.equals(country)) {
-                    if (address.city.equals(city)) {
-                        findAddress = true;
-                        uniqueCountries.add(address.country);
-                        deliveryCost = costPerAddress.get(address) * weight;
-                        deliveryCostSum += deliveryCost;
-                        System.out.println("Стоимость доставки составит: " + deliveryCost);
-                        System.out.println("Общая стоимость всех доставок: " + deliveryCostSum);
-                    }
-                }
+            Address address = new Address(country, city);
+            if (costPerAddress.containsKey(address)) {
+                findAddress = true;
+                uniqueCountries.add(address.country);
+                deliveryCost = costPerAddress.get(address) * weight;
+                deliveryCostSum += deliveryCost;
+                System.out.println("Стоимость доставки составит: " + deliveryCost);
+                System.out.println("Общая стоимость всех доставок: " + deliveryCostSum);
             }
             if (!findAddress) {
                 System.out.println("Доставки по этому адресу нет!");
