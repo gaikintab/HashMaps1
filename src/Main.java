@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -15,6 +13,7 @@ public class Main {
         int deliveryCost;
         int deliveryCostSum = 0;
         Map<Address, Integer> costPerAddress = new HashMap<>();
+        Set<String> uniqueCountries = new HashSet<>();
         Scanner scanner = new Scanner(System.in);
 
         costPerAddress.put(address1, 1000);
@@ -37,6 +36,7 @@ public class Main {
                 if (address.country.equals(country)) {
                     if (address.city.equals(city)) {
                         findAddress = true;
+                        uniqueCountries.add(address.country);
                         deliveryCost = costPerAddress.get(address) * weight;
                         deliveryCostSum += deliveryCost;
                         System.out.println("Стоимость доставки составит: " + deliveryCost);
@@ -47,6 +47,22 @@ public class Main {
             if (!findAddress) {
                 System.out.println("Доставки по этому адресу нет!");
             }
+            if (!uniqueCountries.isEmpty()) {
+                uniqueCountriesPrint(uniqueCountries);
+            }
         }
+    }
+
+    static void uniqueCountriesPrint(Set<String> uniqueCountries) {
+        System.out.println("Список стран доставки:");
+        StringBuilder countries = new StringBuilder();
+        for (String country : uniqueCountries) {
+            if (countries.isEmpty()) {
+                countries.append(country);
+            } else {
+                countries.append(", ").append(country);
+            }
+        }
+        System.out.println(countries);
     }
 }
